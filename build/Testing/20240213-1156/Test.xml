@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20240213-1156-Experimental"
+	Name="nikita-desktop"
+	Generator="ctest-3.25.2"
+	CompilerName="/usr/bin/c++"
+	CompilerVersion="9.4.0"
+	OSName="Linux"
+	Hostname="nikita-desktop"
+	OSRelease="5.15.0-94-generic"
+	OSVersion="#104~20.04.1-Ubuntu SMP Tue Jan 16 13:34:09 UTC 2024"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="23"
+	ModelID="24"
+	ProcessorCacheSize="512"
+	NumberOfLogicalCPU="8"
+	NumberOfPhysicalCPU="4"
+	TotalVirtualMemory="2047"
+	TotalPhysicalMemory="15910"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="2061.49"
+	>
+	<Testing>
+		<StartDateTime>Feb 13 18:56 +07</StartDateTime>
+		<StartTestTime>1707825382</StartTestTime>
+		<TestList/>
+		<EndDateTime>Feb 13 18:56 +07</EndDateTime>
+		<EndTestTime>1707825382</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

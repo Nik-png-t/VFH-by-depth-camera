@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/nikita/catkin_ws/src/VFHByDepthCam/build/devel/setup.sh

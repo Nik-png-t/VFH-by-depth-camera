@@ -1,0 +1,38 @@
+<sdf version='1.5'>
+  <model name='uav_lidar'>
+
+	<include>
+      <uri>model://iris</uri>
+    </include>
+
+	<include>
+      <uri>model://rangefinder</uri>
+  </include>
+
+	<include>
+      <uri>model://navigation_cam</uri>
+      <pose>0 0 -0.04 0 1.578 0</pose>
+      <cameraName>camera_down</cameraName>
+      <frameName>/camera_down</frameName>
+  </include>
+
+	<joint name="range_down_joint" type="fixed">
+      <child>rangefinder::link</child>
+      <parent>iris::base_link</parent>
+  </joint>
+	
+  <joint name="fpv_cam_joint" type="fixed">
+    <child>navigation_cam::link</child>
+    <parent>iris::base_link</parent>
+    <pose>0 0 0 0 0 0</pose>
+	  <axis>
+       <xyz>0 0 1</xyz>
+       <limit>
+         <upper>0</upper>
+         <lower>0</lower>
+       </limit>
+     </axis>
+  </joint>
+
+  </model>
+</sdf>
