@@ -23,7 +23,7 @@ VFH::VFH(ros::NodeHandle n_){
     n = n_;
     
     // положение добавляемое к текущему
-    free_distance = 4;
+    free_distance = 6;
     // максимальный обзор камеры в метрах
     range_max = 9;
     // если дистанция до препятствия больше чем distance_to_obstacle то область на гистограмме будет закрашена
@@ -130,9 +130,9 @@ void VFH::choose_direction(double* direction){
     z = desired_position.pose.position.z-current_position.pose.position.z;
 
     if (!(x > -0.2 and x < 0.2 and z < 0.2 and z > -0.2 and y > -0.2 and y < 0.2)){
-        z = (z_last*4/5 + z*1/5);
-        y = (y_last*4/5 + y*1/5);
-        x = (x_last*4/5 + x*1/5);
+        //z = (z_last*4/5 + z*1/5);
+        //y = (y_last*4/5 + y*1/5);
+        //x = (x_last*4/5 + x*1/5);
         direction[0] = abs(x) > free_distance? x/abs(x)*free_distance: int(x);
         direction[1] = abs(y) > free_distance? y/abs(y)*free_distance: int(y);
         direction[2] = abs(z) > free_distance? z/abs(z)*free_distance: int(z);
@@ -146,7 +146,7 @@ void VFH::choose_direction(double* direction){
 
 // choose free direction
 bool VFH::choose_free_direction(double *direction){
-    static int orientationY = 1, timer = 5;
+    static int orientationY = 1, timer = 2;
     bool is_free = false;
     double orientationZ = 1, x, y;
 
@@ -164,8 +164,8 @@ bool VFH::choose_free_direction(double *direction){
         y = (direction[1]*cos(-yaw) + direction[0]*sin(-yaw))*map_detail; 
         for (;y < range_max*map_detail and y > -range_max*map_detail;y+= orientationY){
             is_free = true;
-            for (int i = -2; i < 3; i++){
-                for (int j = -2; j < 3; j++){
+            for (int i = -map_detail*1.5; i < map_detail*1.5+1; i++){
+                for (int j = -map_detail; j < map_detail+1; j++){
                     if ((y+i) >= range_max*map_detail || (y+i) <= -range_max*map_detail || (z+j) >= range_max*map_detail || (z+j) <= -range_max*map_detail || !histogram[j + round(z) + range_max*map_detail][i + round(y) + range_max*map_detail]){
                         is_free = false;
                         break;
@@ -174,7 +174,7 @@ bool VFH::choose_free_direction(double *direction){
                 if (!is_free){break;}
             }
             if (is_free){
-                if (timer != 5){
+                if (timer != 2){
                     timer++;
                 }
                 // local to global
@@ -189,7 +189,7 @@ bool VFH::choose_free_direction(double *direction){
     timer-=1;
     if (!timer){
         orientationY = -orientationY;
-        timer = 5;
+        timer = 2;
     }
     return false;
 }
@@ -224,7 +224,7 @@ void VFH::create_histogram(pcl::PointCloud<pcl::PointXYZ> msg){
             else{
                 distance = map_distance[i][j]/map_countable[i][j]; 
             }
-            if (distance < distance_to_obstacle){
+            if (distance < (double)distance_to_obstacle){
                 histogram[i][j] = false; // obstacle = 0
             }
             else{
